@@ -131,12 +131,27 @@ canvas {
     pointer-events: none;
 }
 
-/* Mobile layout fix */
+/* Mobile adjustments */
 @media (max-width: 600px) {
+    .card {
+        padding: 20px;        /* reduce padding */
+        max-width: 95%;       /* almost full width */
+    }
+
+    h2 {
+        font-size: 20px;      /* smaller heading */
+    }
+
+    .message-box {
+        font-size: 15px;      /* smaller text */
+        line-height: 1.6;
+        overflow-wrap: break-word; /* avoid overflow */
+        word-break: break-word;
+    }
+
     .buttons {
         flex-direction: column;
-        width: 100%;
-        gap: 14px;
+        gap: 12px;
     }
 
     .buttons button {
@@ -144,11 +159,8 @@ canvas {
         padding: 12px 0;
         font-size: 15px;
     }
-
-    .card {
-        overflow: visible;
-    }
 }
+
 </style>
 </head>
 
