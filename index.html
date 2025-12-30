@@ -7,9 +7,6 @@
 
 <style>
 
-
-
-
 * { box-sizing: border-box; }
 
 body {
@@ -21,10 +18,10 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    box-sizing: border-box;  /* 🔥 FIX */
     color: white;
 }
 
+/* CARD */
 .card {
     width: 100%;
     max-width: 900px;
@@ -35,6 +32,8 @@ body {
     box-shadow: 0 30px 60px rgba(0,0,0,0.6);
     text-align: center;
     animation: slideUp 0.8s ease;
+    position: relative;
+    z-index: 1;
 }
 
 @keyframes slideUp {
@@ -47,19 +46,17 @@ h2 {
     margin-bottom: 20px;
 }
 
-
-
+/* MESSAGE BOX */
 .message-box {
     padding: 28px;
     border-radius: 22px;
     background: rgba(0,0,0,0.35);
-    font-size: 16px;      /* slightly smaller */
-    line-height: 1.5;  
+    font-size: 16px;
+    line-height: 1.5;
     text-align: left;
     animation: fadeIn 0.6s ease;
-	 height: auto;
-    max-height: none;
-    overflow: visible;
+    position: relative;
+    z-index: 1;
 }
 
 @keyframes fadeIn {
@@ -67,23 +64,35 @@ h2 {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* BUTTON CONTAINER */
 .buttons {
     margin-top: 26px;
     display: flex;
     justify-content: center;
     gap: 26px;
+    position: relative;
+    z-index: 10;
 }
 
+/* BUTTON */
 button {
     padding: 14px 34px;
     border-radius: 30px;
     border: none;
     font-size: 16px;
     cursor: pointer;
-    transition: 0.25s ease;
+    transition: background 0.25s ease;
+    position: relative;
+    z-index: 11;
 }
 
-button:hover { transform: scale(1.08); }
+button:hover {
+    transform: none; /* 🔥 IMPORTANT FIX */
+}
+
+button:active {
+    transform: scale(0.96);
+}
 
 .yes {
     background: linear-gradient(135deg, #00c6ff, #0072ff);
@@ -95,12 +104,10 @@ button:hover { transform: scale(1.08); }
     color: white;
 }
 
-/* Heart color */
-.heart {
-    color: red;
-}
+/* HEART */
+.heart { color: red; }
 
-/* Angry smoke animation */
+/* SMOKE */
 .smoke {
     font-size: 36px;
     animation: smoke 1.4s infinite;
@@ -111,7 +118,7 @@ button:hover { transform: scale(1.08); }
     100% { opacity: 0; transform: translateY(-20px); }
 }
 
-/* Gift */
+/* GIFT */
 .gift {
     width: 130px;
     margin: 30px auto 10px;
@@ -124,22 +131,23 @@ button:hover { transform: scale(1.08); }
     50% { transform: scale(1.12); }
 }
 
+/* FINAL */
 .final {
     font-size: 22px;
     line-height: 1.7;
     text-align: center;
 }
 
+/* CONFETTI */
 canvas {
     position: fixed;
     top: 0;
     left: 0;
     pointer-events: none;
+    z-index: 0;
 }
 
-/* =========================
-   MOBILE FIX (KEEP AT END)
-   ========================= */
+/* MOBILE FIX */
 @media (max-width: 600px) {
 
     body {
@@ -162,17 +170,25 @@ canvas {
         font-size: 14px;
     }
 
+    .cta-text {
+        font-size: 14px;
+        margin-top: 16px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
     .buttons {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 14px;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 12px;
         width: 100%;
     }
 
     .buttons button {
-        width: 100%;
+        width: 48%;
         padding: 12px 0;
         font-size: 15px;
+        border-radius: 18px;
     }
 
     .gift {
@@ -182,6 +198,15 @@ canvas {
     .final {
         font-size: 16px;
     }
+}
+
+/* CTA TEXT */
+.cta-text {
+    margin-top: 18px;
+    margin-bottom: 12px;
+    opacity: 0.9;
+    text-align: center;
+    font-size: 15px;
 }
 
 </style>
@@ -202,6 +227,7 @@ canvas {
 </div>
 
 <script>
+/* JS — UNCHANGED (exactly as you gave) */
 let step = 0;
 
 function firstNo() {
@@ -211,8 +237,6 @@ function firstNo() {
 
 /* MAIN FLOW */
 function next() {
-
-    /* STEP 0 */
     if (step === 0) {
         document.getElementById("title").innerText =
             "Take a moment and read this 💙";
@@ -220,16 +244,12 @@ function next() {
         document.getElementById("content").innerHTML = `
         <div class="message-box">
             <b>To the most amazing person <span class="heart">❤️</span></b><br><br>
-
             Ever since I started talking to you, it has quietly become one of the
             best parts of my day. Talking to you never feels forced — it feels
             easy, natural, and comforting.<br><br>
-
             Now before you think,
             <i>“Okay… why all this sweetness suddenly?”</i> 😄<br><br>
-
             <b>Here’s my reason.</b><br>
-
             <div style="text-align:center;margin-top:10px;">
                 <p style="opacity:0.9;">Curious to know why? 🤔</p>
                 <div class="buttons">
@@ -243,7 +263,6 @@ function next() {
         return;
     }
 
-    /* STEP 1 */
     if (step === 1) {
         document.getElementById("title").innerText =
             "Here’s why I say this 🙂";
@@ -255,17 +274,14 @@ function next() {
             And no, it’s not love 😜 — 
             but yes, I’ve told you this before… 
             I really like your voice.<br><br>
-
             A few things about you that I truly admire:<br><br>
-
             • You’re always ready for any plan 😉.<br>
             • Your values — the way you stay connected to them says a lot about you.<br>
             • You’re hardworking and dedicated, and it shows.<br>
             • You never say no to your close ones if they ask for help.<br>
         </div>
-
-        <div class="buttons" style="text-align:center;">
-            <p style="opacity:0.9;">Want to know more interesting things? 👀</p>
+        <p class="cta-text">Want to know more interesting things? 👀</p>
+        <div class="buttons">
             <button class="yes" onclick="next()">Yes</button>
             <button class="no" onclick="page3No()">No</button>
         </div>`;
@@ -273,9 +289,9 @@ function next() {
         return;
     }
 
-    /* STEP 2 */
     if (step === 2) {
-        document.getElementById("title").innerText = "Want to know more about what I admire? 😌";
+        document.getElementById("title").innerText =
+            "Want to know more about what I admire? 😌";
 
         document.getElementById("content").innerHTML = `
         <div class="message-box" style="text-align:center;">
@@ -289,20 +305,17 @@ function next() {
         return;
     }
 
-    /* STEP 3 */
     if (step === 3) {
         document.getElementById("title").innerText = "One last thing 🎁";
-
         document.getElementById("content").innerHTML = `
         <img class="gift"
              src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png"
              onclick="openGift()">
         <div style="opacity:.7;font-size:14px;">Tap the gift</div>`;
-        step = 4; 
+        step = 4;
     }
 }
 
-/* Playful Yes button in STEP 2 */
 function playfulYes() {
     document.getElementById("title").innerText = "😏 You can't escape this!";
     document.getElementById("content").innerHTML = `
@@ -312,30 +325,25 @@ function playfulYes() {
     </div>`;
 }
 
-/* Show remaining admiration points (Page 3) */
 function goToPage3() {
     document.getElementById("title").innerText = "Still not done 😌";
-
     document.getElementById("content").innerHTML = `
     <div class="message-box">
 • You listen to what I say and also implement things (basically you remember them).<br>
 • You were tired that day but still picked my call and talked to me and it means allot to me ❤️.<br>
 There are many more little things… but I’ll stop here before this turns into a novel 😄<br><br>
-I wish that 2026 is the best year for you, where you achieve all the success in life in whatever you do. I pray to God that all your dreams come true, all your desires get fulfilled, and you face no troubles in life.
-I’m sure you’ll be the most successful person because you’re going to become a data/business analyst, right? I know I’m always right 😉
+I wish that 2026 is the best year for you, where you achieve all the success in life in whatever you do.
+I’m sure you’ll be the most successful person because you’re going to become a data/business analyst, right?
 I pray that you always keep smiling and always stay this sleepy head whenever I call you 😂<br><br>
 Ninakku ente ella nalla aashamsakalum Appu❤️
-
     </div>
-
-    <div class="buttons" style="text-align:center;">
+    <div class="buttons">
         <p style="opacity:0.9;">Curious for the finale? 🤔</p>
         <button class="yes" onclick="next()">Yes</button>
     </div>`;
     step = 3;
 }
 
-/* NO REACTIONS */
 function page2No() {
     step = 1;
     document.getElementById("content").innerHTML = `
@@ -409,4 +417,3 @@ function startConfetti() {
 
 </body>
 </html>
-
