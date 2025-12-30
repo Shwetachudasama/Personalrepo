@@ -7,52 +7,7 @@
 
 <style>
 
-/* =========================
-   MOBILE RESPONSIVE FIX
-   ========================= */
-@media (max-width: 600px) {
 
-    body {
-        padding: 10px;
-        align-items: flex-start;
-    }
-
-    .card {
-        padding: 22px 18px;
-        border-radius: 20px;
-    }
-
-    h2 {
-        font-size: 18px;
-        line-height: 1.4;
-    }
-
-    .message-box {
-        padding: 18px;
-        font-size: 14px;
-        line-height: 1.6;
-    }
-
-    .buttons {
-        flex-direction: column;
-        gap: 14px;
-    }
-
-    button {
-        width: 100%;
-        font-size: 15px;
-        padding: 12px 0;
-    }
-
-    .gift {
-        width: 90px;
-    }
-
-    .final {
-        font-size: 16px;
-        line-height: 1.6;
-    }
-}
 
 
 * { box-sizing: border-box; }
@@ -181,6 +136,54 @@ canvas {
     left: 0;
     pointer-events: none;
 }
+
+/* =========================
+   MOBILE FIX (KEEP AT END)
+   ========================= */
+@media (max-width: 600px) {
+
+    body {
+        padding: 10px;
+        align-items: flex-start;
+    }
+
+    .card {
+        padding: 22px 18px;
+        border-radius: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+
+    .message-box {
+        padding: 18px;
+        font-size: 14px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        width: 100%;
+    }
+
+    .buttons button {
+        width: 100%;
+        padding: 12px 0;
+        font-size: 15px;
+    }
+
+    .gift {
+        width: 90px;
+    }
+
+    .final {
+        font-size: 16px;
+    }
+}
+
 </style>
 </head>
 
