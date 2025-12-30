@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Just For You</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;  /* 🔥 FIX */
+    color: white;
+}
+
+.card {
+    width: 100%;
+    max-width: 900px;
+    padding: 36px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    text-align: center;
+    animation: slideUp 0.8s ease;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+
+
+.message-box {
+    padding: 28px;
+    border-radius: 22px;
+    background: rgba(0,0,0,0.35);
+    font-size: 16px;      /* slightly smaller */
+    line-height: 1.5;  
+    text-align: left;
+    animation: fadeIn 0.6s ease;
+	 height: auto;
+    max-height: none;
+    overflow: visible;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.buttons {
+    margin-top: 26px;
+    display: flex;
+    justify-content: center;
+    gap: 26px;
+}
+
+button {
+    padding: 14px 34px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+button:hover { transform: scale(1.08); }
+
+.yes {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+}
+
+.no {
+    background: #3a3a3a;
+    color: white;
+}
+
+/* Heart color */
+.heart {
+    color: red;
+}
+
+/* Angry smoke animation */
+.smoke {
+    font-size: 36px;
+    animation: smoke 1.4s infinite;
+}
+
+@keyframes smoke {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); }
+}
+
+/* Gift */
+.gift {
+    width: 130px;
+    margin: 30px auto 10px;
+    cursor: pointer;
+    animation: pulse 1.6s infinite;
+}
+
+@keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}
+
+.final {
+    font-size: 22px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="card">
+    <h2 id="title">I have something for you ✨<span class="heart">❤️</span><br>Are you ready?</h2>
+    <div id="content"></div>
+
+    <div class="buttons" id="mainButtons">
+        <button class="yes" onclick="next()">Yes</button>
+        <button class="no" onclick="firstNo()">No</button>
+    </div>
+</div>
+
+<script>
+let step = 0;
+
+function firstNo() {
+    document.getElementById("title").innerText =
+        "Nice try 😌 But you know you’re curious";
+}
+
+/* MAIN FLOW */
+function next() {
+
+    /* STEP 0 */
+    if (step === 0) {
+        document.getElementById("title").innerText =
+            "Take a moment and read this 💙";
+
+        document.getElementById("content").innerHTML = `
+        <div class="message-box">
+            <b>To the most amazing person <span class="heart">❤️</span></b><br><br>
+
+            Ever since I started talking to you, it has quietly become one of the
+            best parts of my day. Talking to you never feels forced — it feels
+            easy, natural, and comforting.<br><br>
+
+            Now before you think,
+            <i>“Okay… why all this sweetness suddenly?”</i> 😄<br><br>
+
+            <b>Here’s my reason.</b><br>
+
+            <div style="text-align:center;margin-top:10px;">
+                <p style="opacity:0.9;">Curious to know why? 🤔</p>
+                <div class="buttons">
+                    <button class="yes" onclick="reasonYes()">Yes 😌</button>
+                    <button class="no" onclick="page2No()">No 😏</button>
+                </div>
+            </div>
+        </div>`;
+        document.getElementById("mainButtons").style.display = "none";
+        step = 1;
+        return;
+    }
+
+    /* STEP 1 */
+    if (step === 1) {
+        document.getElementById("title").innerText =
+            "Here’s why I say this 🙂";
+
+        document.getElementById("content").innerHTML = `
+        <div class="message-box">
+            I genuinely enjoy our conversations.
+            I love listening to the things you share.
+            And no, it’s not love 😜 — 
+            but yes, I’ve told you this before… 
+            I really like your voice.<br><br>
+
+            A few things about you that I truly admire:<br><br>
+
+            • You’re always ready for any plan 😉.<br>
+            • Your values — the way you stay connected to them says a lot about you.<br>
+            • You’re hardworking and dedicated, and it shows.<br>
+            • You never say no to your close ones if they ask for help.<br>
+        </div>
+
+        <div class="buttons" style="text-align:center;">
+            <p style="opacity:0.9;">Want to know more interesting things? 👀</p>
+            <button class="yes" onclick="next()">Yes</button>
+            <button class="no" onclick="page3No()">No</button>
+        </div>`;
+        step = 2;
+        return;
+    }
+
+    /* STEP 2 */
+    if (step === 2) {
+        document.getElementById("title").innerText = "Want to know more about what I admire? 😌";
+
+        document.getElementById("content").innerHTML = `
+        <div class="message-box" style="text-align:center;">
+            A few more things are waiting… Bored already? 😏<br><br>
+            <div class="buttons">
+                <button class="yes" onclick="playfulYes()">Yes 😅</button>
+                <button class="no" onclick="goToPage3()">No 😌</button>
+            </div>
+        </div>`;
+        step = 3;
+        return;
+    }
+
+    /* STEP 3 */
+    if (step === 3) {
+        document.getElementById("title").innerText = "One last thing 🎁";
+
+        document.getElementById("content").innerHTML = `
+        <img class="gift"
+             src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png"
+             onclick="openGift()">
+        <div style="opacity:.7;font-size:14px;">Tap the gift</div>`;
+        step = 4; 
+    }
+}
+
+/* Playful Yes button in STEP 2 */
+function playfulYes() {
+    document.getElementById("title").innerText = "😏 You can't escape this!";
+    document.getElementById("content").innerHTML = `
+    <div class="message-box" style="text-align:center;">
+        I know you’re curious, so let’s continue!<br><br>
+        <button class="yes" onclick="goToPage3()">Alright 😅</button>
+    </div>`;
+}
+
+/* Show remaining admiration points (Page 3) */
+function goToPage3() {
+    document.getElementById("title").innerText = "Still not done 😌";
+
+    document.getElementById("content").innerHTML = `
+    <div class="message-box">
+• You listen to what I say and also implement things (basically you remember them).<br>
+• You were tired that day but still picked my call and talked to me and it means allot to me ❤️.<br>
+There are many more little things… but I’ll stop here before this turns into a novel 😄<br><br>
+I wish that 2026 is the best year for you, where you achieve all the success in life in whatever you do. I pray to God that all your dreams come true, all your desires get fulfilled, and you face no troubles in life.
+I’m sure you’ll be the most successful person because you’re going to become a data/business analyst, right? I know I’m always right 😉
+I pray that you always keep smiling and always stay this sleepy head whenever I call you 😂<br><br>
+Ninakku ente ella nalla aashamsakalum Appu❤️
+
+    </div>
+
+    <div class="buttons" style="text-align:center;">
+        <p style="opacity:0.9;">Curious for the finale? 🤔</p>
+        <button class="yes" onclick="next()">Yes</button>
+    </div>`;
+    step = 3;
+}
+
+/* NO REACTIONS */
+function page2No() {
+    step = 1;
+    document.getElementById("content").innerHTML = `
+    <div class="message-box" style="text-align:center;">
+        😤 HOW DARE YOU<br><br>
+        I was being sweet here<br>
+        <span class="smoke">💨</span><span class="smoke">💨</span><br><br>
+        <button class="yes" onclick="reasonYes()">Okay okay tell me 😅</button>
+    </div>`;
+}
+
+function page3No() {
+    step = 2;
+    document.getElementById("content").innerHTML = `
+    <div class="message-box" style="text-align:center;">
+        😌 Playing hard to get?<br><br>
+        I like this side of you,<br>
+        but you’re not escaping this one 😉<br><br>
+        <button class="yes" onclick="next()">Alright, continue</button>
+    </div>`;
+}
+
+function reasonYes() {
+    step = 1;
+    next();
+}
+
+function openGift() {
+    document.getElementById("title").innerText = "";
+    document.getElementById("content").innerHTML = `
+    <div class="final">
+        🎉 Happy New Year Handsome <span class="heart">❤️</span> 🎉<br><br>
+        May this year bring you success, happiness, and the fulfillment of all your wishes. I pray that you get a job with the highest package so that you can shower me with expensive gifts 😆. Here's to wishing each other well for many years to come!🥂
+    </div>`;
+    startConfetti();
+}
+
+/* CONFETTI */
+function startConfetti() {
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const pieces = [];
+    for (let i = 0; i < 160; i++) {
+        pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            r: Math.random() * 6 + 3,
+            c: `hsl(${Math.random()*360},100%,60%)`,
+            s: Math.random() * 3 + 2
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        pieces.forEach(p=>{
+            p.y += p.s;
+            if(p.y>canvas.height) p.y = -10;
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fillStyle = p.c;
+            ctx.fill();
+        });
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+</script>
+
+</body>
+</html>
